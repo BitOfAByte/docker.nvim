@@ -43,8 +43,9 @@ local function show_docker_images(opts)
       actions.select_default:replace(function()
         local selection = actions_state.get_selected_entry()
         actions.close(prompt_bufnr)
-        local command = string.format("edit term://docker run -it %s", selection.values.Repository)
-        vim.cmd(vim.fn.join(command, ' '))
+        -- Open a new split with a terminal running the docker container
+        vim.cmd('split')
+        vim.cmd('terminal docker run -it ' .. selection.values.Repository)
       end)
       return true
     end
